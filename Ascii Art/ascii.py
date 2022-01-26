@@ -27,7 +27,7 @@ text_file = open("metadata.txt", "w")
 
 add = str(input("Add address: "))
 
-im = Image.open(add)
+im = Image.open("../inputs/"+add)
 # im.resize((100,100))
 fnt = ImageFont.truetype('C:\\Windows\\Fonts\\lucon.ttf', 15)
 
