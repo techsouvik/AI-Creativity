@@ -1,14 +1,21 @@
-from PIL import Image, ImageDraw, ImageFont
-
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance
+# import ascii
 import math
 
-chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
+check = input("Add Characters? (y/n): ")
+
+if (check=='y' or check=='Y'):
+    chars=input("Enter characters to be added: ")
+else:
+    chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
+
+
 # chars = "#Wo- "[::-1]
 charArray = list(chars)
 charLength = len(charArray)
 interval = charLength/256
 
-scaleFactor = 0.3
+scaleFactor = 0.4
 
 oneCharWidth = 10
 oneCharHeight = 18
@@ -16,10 +23,12 @@ oneCharHeight = 18
 def getChar(inputInt):
     return charArray[math.floor(inputInt*interval)]
 
-text_file = open("Output.txt", "w")
+text_file = open("metadata.txt", "w")
 
-im = Image.open("car.jpg")
+add = str(input("Add address: "))
 
+im = Image.open(add)
+# im.resize((100,100))
 fnt = ImageFont.truetype('C:\\Windows\\Fonts\\lucon.ttf', 15)
 
 width, height = im.size
@@ -40,4 +49,9 @@ for i in range(height):
 
     text_file.write('\n')
 
-outputImage.save('output.png')
+outputImage = ImageEnhance.Brightness(outputImage).enhance(1.2)
+outputImage = ImageEnhance.Color(outputImage).enhance(5)
+outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.5)
+outputImage.save('nft.jpg')
+print("Done! Enjoy!")
+# print(ascii.charlist())
