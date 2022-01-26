@@ -52,6 +52,6 @@ for i in range(height):
 outputImage = ImageEnhance.Brightness(outputImage).enhance(1.2)
 outputImage = ImageEnhance.Color(outputImage).enhance(5)
 outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.5)
-outputImage.save('nft.jpg')
+outputImage.save('../outputs/nft.jpg')
 print("Done! Enjoy!")
 # print(ascii.charlist())
