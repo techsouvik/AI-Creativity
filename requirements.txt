@@ -5,3 +5,5 @@ json
 time
 logging
 math
+duckduckgo-images-api
+duckduckpy

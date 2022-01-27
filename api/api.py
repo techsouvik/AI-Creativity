@@ -50,29 +50,28 @@ def search(keywords, max_results=1):
         ('v7exp', 'a'),
     )
 
-    requestUrl = url + "i.js";
+    requestUrl = url + "i.js"
 
-    logger.debug("Hitting Url : %s", requestUrl);
+    logger.debug("Hitting Url : %s", requestUrl)
 
     check = 0
 
     while True:
         while True:
             try:
-                res = requests.get(requestUrl, headers=headers, params=params);
-                data = json.loads(res.text);
-                check += 1;
-                break;
+                res = requests.get(requestUrl, headers=headers, params=params)
+                data = json.loads(res.text)
+                break
             except ValueError as e:
-                logger.debug("Hitting Url Failure - Sleep and Retry: %s", requestUrl);
-                time.sleep(5);
-                continue;
-        logger.debug("Hitting Url Success : %s", requestUrl);
-        printJson(data["results"]);
-
-        if "next" not in data:
-            logger.debug("No Next Page - Exiting");
-            exit(0);
+                logger.debug("Hitting Url Failure - Sleep and Retry: %s", requestUrl)
+                continue
+        logger.debug("Hitting Url Success : %s", requestUrl)
+        check += download(data["results"],max_results-check)
+        if check >= max_results or "next" not in data:
+            print("----------------------------------------")
+            logger.debug("Downloaded %d Images", check)
+            exit(0)
+        print("---------------------------------------------Next Page---------------------------------------------")
 
         requestUrl = url + data["next"];
 
@@ -86,4 +85,26 @@ def printJson(objs):
         print("Image: {0}".format(obj["image"]))
         
 
-search("cat")
+def download(objs,max_results):
+    n=0
+    if len(objs)>=max_results:
+        objs = objs[:max_results]
+
+    for obj in objs:
+        try:
+            response = requests.get(obj["image"])
+            file = open("../inputs/api_outputs/nft_input"+str(n)+".jpg", "wb")
+            file.write(response.content)
+            file.close()
+            print("-----------------")
+            print("Downloaded "+str(n+1)+" Image: {0}".format(obj["image"]))
+            print("-----------------")
+            n+=1
+        except Exception as e:
+            print("-----------------")
+            print("Image Download Failed: {0}".format(obj["image"]))
+            print("Error: {0}".format(e))
+            print("-----------------")
+    return n
+
+search("cat",10)

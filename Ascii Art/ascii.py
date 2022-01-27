@@ -32,6 +32,13 @@ im = Image.open("../inputs/"+add)
 fnt = ImageFont.truetype('C:\\Windows\\Fonts\\lucon.ttf', 15)
 
 width, height = im.size
+
+# basewidth = 50
+# wpercent = (basewidth/float(im.size[0]))
+# hsize = int((float(im.size[1])*float(wpercent)))
+# im = im.resize((basewidth,hsize), Image.ANTIALIAS)
+# # im=im.resize(resi, Image.ANTIALIAS)
+
 im = im.resize((int(scaleFactor*width), int(scaleFactor*height*(oneCharWidth/oneCharHeight))), Image.NEAREST)
 width, height = im.size
 pix = im.load()
