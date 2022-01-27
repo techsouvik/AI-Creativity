@@ -24,6 +24,9 @@ def clear_files(dir):
         os.mkdir(dir)
 
 
-# print(filecount('./inputs/api_outputs'))
-# print(clear_files('./inputs/api_outputs'))
-# print(filecount('./inputs/api_outputs'))
+print(filecount('./inputs'))
+print(clear_files('./inputs'))
+print(filecount('./inputs'))
+print(filecount('./inputs'))
+print(clear_files('./outputs'))
+print(filecount('./outputs'))
