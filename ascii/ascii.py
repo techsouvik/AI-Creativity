@@ -53,7 +53,8 @@ def ascii_art(num):
 
         text_file.write('\n')
 
-    outputImage = ImageEnhance.Brightness(outputImage).enhance(1.2)
+    outputImage = ImageEnhance.Brightness(outputImage).enhance(2)
+    outputImage = ImageEnhance.Contrast(outputImage).enhance(0.69)
     outputImage = ImageEnhance.Color(outputImage).enhance(5)
     outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.5)
     outputImage.save('./outputs/nft'+str(num)+'.jpg')
