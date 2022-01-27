@@ -4,8 +4,8 @@ import argparse
 def main():
     parser = argparse.ArgumentParser(description='Automatic ASCII art generator')
     parser.add_argument("-n", "--name", required=False, help="name of the user", default='Geeks')
-    parser.add_argument("-t", "--token", required=True, help="Search token of the NFT Batch", default='NFT')
-    parser.add_argument("-m", "--max", required=True, help="Maximum number of NFTs to be searched", default=3)
+    parser.add_argument("-t", "--token", required=False, help="Search token of the NFT Batch", default='NFT')
+    parser.add_argument("-m", "--max", required=False, help="Maximum number of NFTs to be searched", default=3)
     parser.add_argument("-c", "--chars", required=False, help="Characters to be used in the ASCII art", default='AnikArnabDhriteshJagreetSaptarshiSubhajitSurya')
     args = vars(parser.parse_args())
     # display a friendly message to the user
