@@ -56,25 +56,25 @@ def search(keywords, max_results=1):
 
     check = 0
 
-    # while check<=max_results:
-    while check<=max_results:
-        try:
-            res = requests.get(requestUrl, headers=headers, params=params);
-            data = json.loads(res.text);
-            check += 1;
-            break;
-        except ValueError as e:
-            logger.debug("Hitting Url Failure - Sleep and Retry: %s", requestUrl);
-            time.sleep(5);
-            continue;
-    logger.debug("Hitting Url Success : %s", requestUrl);
-    printJson(data["results"]);
+    while True:
+        while True:
+            try:
+                res = requests.get(requestUrl, headers=headers, params=params);
+                data = json.loads(res.text);
+                check += 1;
+                break;
+            except ValueError as e:
+                logger.debug("Hitting Url Failure - Sleep and Retry: %s", requestUrl);
+                time.sleep(5);
+                continue;
+        logger.debug("Hitting Url Success : %s", requestUrl);
+        printJson(data["results"]);
 
-        # if "next" not in data:
-        #     logger.debug("No Next Page - Exiting");
-        #     exit(0);
+        if "next" not in data:
+            logger.debug("No Next Page - Exiting");
+            exit(0);
 
-        # requestUrl = url + data["next"];
+        requestUrl = url + data["next"];
 
 def printJson(objs):
     for obj in objs:
@@ -86,4 +86,4 @@ def printJson(objs):
         print("Image: {0}".format(obj["image"]))
         
 
-# search("AI")
+search("cat")
