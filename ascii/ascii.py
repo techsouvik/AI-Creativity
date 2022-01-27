@@ -1,12 +1,12 @@
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
-from api import search
+from ascii.api import search
 import math
-from File import filecount, clear_files
+from ascii.File import filecount, clear_files
 
 
-def ascii_art(num):
+def ascii_art(num,ch):
     print('------------------------------------------------------')
-
+    chars=ch
     # chars = "#Wo- "[::-1]
     charArray = list(chars)
     charLength = len(charArray)
@@ -26,7 +26,7 @@ def ascii_art(num):
 
     im = Image.open(add)
     # im.resize((100,100))
-    fnt = ImageFont.truetype(r'ascii/firacode.ttf', 15)
+    fnt = ImageFont.truetype('ascii/firacode.ttf', 15)
 
     width, height = im.size
 
@@ -40,7 +40,7 @@ def ascii_art(num):
     width, height = im.size
     pix = im.load()
 
-    outputImage = Image.new('RGB', (oneCharWidth * width, oneCharHeight * height), color = (0, 0, 0))
+    outputImage = Image.new('RGB', (oneCharWidth * width, oneCharHeight * height), color = (100, 100, 100))
     d = ImageDraw.Draw(outputImage)
 
     for i in range(height):
@@ -53,7 +53,7 @@ def ascii_art(num):
 
         text_file.write('\n')
 
-    outputImage = ImageEnhance.Brightness(outputImage).enhance(2)
+    outputImage = ImageEnhance.Brightness(outputImage).enhance(1.2)
     # outputImage = ImageEnhance.Contrast(outputImage).enhance(1)
     outputImage = ImageEnhance.Color(outputImage).enhance(5)
     outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.5)
@@ -63,7 +63,7 @@ def ascii_art(num):
 
 
 
-def main():
+def run():
     print('------------------------------------------------------------------------------')
     token = input("Enter your token: ")
     max_results = int(input("Enter number of NFTs: "))
@@ -76,17 +76,16 @@ def main():
     files=filecount('./inputs')
 
     check = input("Add Characters? (y/n): ")
+    chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
 
     if (check=='y' or check=='Y'):
         addon=input("Enter characters to be added: ") or 'n'
-        global chars 
         chars += addon
 
     for i in range(files):
-        ascii_art(i)
+        ascii_art(i,chars)
     print("Done! Enjoy!")
 
 
 if __name__ == '__main__':
-    chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
-    main()
+    run()
