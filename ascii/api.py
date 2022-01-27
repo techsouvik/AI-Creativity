@@ -4,8 +4,8 @@ import json;
 import time;
 import logging;
 
-logging.basicConfig(level=logging.DEBUG);
-logger = logging.getLogger(__name__)
+# logging.basicConfig(level=logging.DEBUG);
+# logger = logging.getLogger(__name__)
 
 def search(keywords, max_results=1):
     url = 'https://duckduckgo.com/';
@@ -14,7 +14,7 @@ def search(keywords, max_results=1):
         # 'm': max_results,
     };
 
-    logger.debug("Hitting DuckDuckGo for Token");
+    # logger.debug("Hitting DuckDuckGo for Token");
 
     #   First make a request to above URL, and parse out the 'vqd'
     #   This is a special token, which should be used in the subsequent request
@@ -22,10 +22,10 @@ def search(keywords, max_results=1):
     searchObj = re.search(r'vqd=([\d-]+)\&', res.text, re.M|re.I);
 
     if not searchObj:
-        logger.error("Token Parsing Failed !");
+        # logger.error("Token Parsing Failed !");
         return -1;
 
-    logger.debug("Obtained Token");
+    # logger.debug("Obtained Token");
 
     headers = {
         'authority': 'duckduckgo.com',
@@ -52,7 +52,7 @@ def search(keywords, max_results=1):
 
     requestUrl = url + "i.js"
 
-    logger.debug("Hitting Url : %s", requestUrl)
+    # logger.debug("Hitting Url : %s", requestUrl)
 
     check = 0
 
@@ -63,13 +63,13 @@ def search(keywords, max_results=1):
                 data = json.loads(res.text)
                 break
             except ValueError as e:
-                logger.debug("Hitting Url Failure - Sleep and Retry: %s", requestUrl)
+                # logger.debug("Hitting Url Failure - Sleep and Retry: %s", requestUrl)
                 continue
-        logger.debug("Hitting Url Success : %s", requestUrl)
+        # logger.debug("Hitting Url Success : %s", requestUrl)
         check += download(data["results"],max_results-check)
         if check >= max_results or "next" not in data:
             print("----------------------------------------")
-            logger.debug("Downloaded %d Images", check)
+            # logger.debug("Downloaded %d Images", check)
             break
         print("-------------------Next Page-------------------")
 
@@ -93,7 +93,7 @@ def download(objs,max_results):
     for obj in objs:
         try:
             response = requests.get(obj["image"])
-            file = open("./inputs/api_outputs/nft_input"+str(n)+".jpg", "wb")
+            file = open("./inputs/nft_input"+str(n)+".jpg", "wb")
             file.write(response.content)
             file.close()
             print("-----------------\n")

@@ -22,7 +22,7 @@ def ascii_art(num):
 
     text_file = open("./outputs/metadata"+str(num)+".bin", "w")
 
-    add = './inputs/api_outputs/nft_input'+str(num)+'.jpg'
+    add = './inputs/nft_input'+str(num)+'.jpg'
 
     im = Image.open(add)
     # im.resize((100,100))
@@ -62,27 +62,30 @@ def ascii_art(num):
 
 
 
+def main():
+    print('------------------------------------------------------------------------------')
+    token = input("Enter your token: ")
+    max_results = int(input("Enter number of NFTs: "))
+    print('------------------------------------------------------------------------------')
 
-print('------------------------------------------------------------------------------')
-token = input("\nEnter your token: ")
-max_results = int(input("Enter the max number of NFTs: "))
-print('\n------------------------------------------------------------------------------')
+    #Searching and saving the input images
+    clear_files('./inputs')
+    clear_files('./outputs')
+    search(token,max_results)
+    files=filecount('./inputs')
 
-#Searching and saving the input images
-clear_files('./inputs/api_outputs')
-clear_files('./outputs')
-search(token,max_results)
-files=filecount('./inputs/api_outputs')
+    check = input("Add Characters? (y/n): ")
 
-check = input("Add Characters? (y/n): ")
+    if (check=='y' or check=='Y'):
+        addon=input("Enter characters to be added: ") or 'n'
+        global chars 
+        chars += addon
 
-if (check=='y' or check=='Y'):
-    chars=input("Enter characters to be added: ")
-else:
+    for i in range(files):
+        ascii_art(i)
+    print("Done! Enjoy!")
+
+
+if __name__ == '__main__':
     chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
-
-for i in range(files):
-    ascii_art(i)
-print("Done! Enjoy!")
-
-
+    main()
