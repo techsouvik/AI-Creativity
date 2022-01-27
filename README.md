@@ -8,6 +8,11 @@ Make sure you have GPU enabled
 
 For the Ascii Art
 ```
+pythom -m venv venv #only run once
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
 cd '.\Ascii Art\'
 python ascii.py
 
@@ -21,4 +26,3 @@ Done! Enjoy!
 
 Outputs are in the output folder.
 ```
-
