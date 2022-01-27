@@ -1,2 +1,7 @@
 Pillow
 requests
+re
+json
+time
+logging
+math
