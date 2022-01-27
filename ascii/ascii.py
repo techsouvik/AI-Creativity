@@ -26,7 +26,7 @@ def ascii_art(num):
 
     im = Image.open(add)
     # im.resize((100,100))
-    fnt = ImageFont.truetype('firacode.ttf', 15)
+    fnt = ImageFont.truetype(r'ascii/firacode.ttf', 15)
 
     width, height = im.size
 
@@ -54,7 +54,7 @@ def ascii_art(num):
         text_file.write('\n')
 
     outputImage = ImageEnhance.Brightness(outputImage).enhance(2)
-    outputImage = ImageEnhance.Contrast(outputImage).enhance(1)
+    # outputImage = ImageEnhance.Contrast(outputImage).enhance(1)
     outputImage = ImageEnhance.Color(outputImage).enhance(5)
     outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.5)
     outputImage.save('./outputs/nft'+str(num)+'.jpg')
