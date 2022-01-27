@@ -20,7 +20,7 @@ def ascii_art(num):
     def getChar(inputInt):
         return charArray[math.floor(inputInt*interval)]
 
-    text_file = open("./outputs/metadata"+str(num)+".txt", "w")
+    text_file = open("./outputs/metadata"+str(num)+".bin", "w")
 
     add = './inputs/api_outputs/nft_input'+str(num)+'.jpg'
 
@@ -70,6 +70,7 @@ print('\n-----------------------------------------------------------------------
 
 #Searching and saving the input images
 clear_files('./inputs/api_outputs')
+clear_files('./outputs')
 search(token,max_results)
 files=filecount('./inputs/api_outputs')
 
