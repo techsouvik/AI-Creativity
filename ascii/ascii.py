@@ -6,6 +6,7 @@ from ascii.File import filecount, clear_files
 
 def ascii_art(num,ch):
     print('------------------------------------------------------')
+    print("Generating ASCII art for image number {}".format(num))
     chars=ch
     # chars = "#Wo- "[::-1]
     charArray = list(chars)
@@ -20,7 +21,7 @@ def ascii_art(num,ch):
     def getChar(inputInt):
         return charArray[math.floor(inputInt*interval)]
 
-    text_file = open("./outputs/metadata"+str(num)+".bin", "w")
+    text_file = open("./outputs/metadata/metadata"+str(num)+".bin", "w")
 
     add = './inputs/nft_input'+str(num)+'.jpg'
 
@@ -40,7 +41,7 @@ def ascii_art(num,ch):
     width, height = im.size
     pix = im.load()
 
-    outputImage = Image.new('RGB', (oneCharWidth * width, oneCharHeight * height), color = (100, 100, 100))
+    outputImage = Image.new('RGB', (oneCharWidth * width, oneCharHeight * height), color = (0, 0, 0))
     d = ImageDraw.Draw(outputImage)
 
     for i in range(height):
@@ -55,7 +56,7 @@ def ascii_art(num,ch):
 
     outputImage = ImageEnhance.Brightness(outputImage).enhance(1.2)
     # outputImage = ImageEnhance.Contrast(outputImage).enhance(1)
-    outputImage = ImageEnhance.Color(outputImage).enhance(5)
+    outputImage = ImageEnhance.Color(outputImage).enhance(3)
     outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.5)
     outputImage.save('./outputs/nft'+str(num)+'.jpg')
     print("NFT"+str(num)+" created")
@@ -63,24 +64,23 @@ def ascii_art(num,ch):
 
 
 
-def run():
+def run(tokex, maxn, ch):
     print('------------------------------------------------------------------------------')
-    token = input("Enter your token: ")
-    max_results = int(input("Enter number of NFTs: "))
+    token = tokex
+    max_results = maxn
     print('------------------------------------------------------------------------------')
 
     #Searching and saving the input images
     clear_files('./inputs')
     clear_files('./outputs')
+    clear_files('./outputs/metadata')
     search(token,max_results)
     files=filecount('./inputs')
 
-    check = input("Add Characters? (y/n): ")
     chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
 
-    if (check=='y' or check=='Y'):
-        addon=input("Enter characters to be added: ") or 'n'
-        chars += addon
+    addon=ch
+    chars += addon
 
     for i in range(files):
         ascii_art(i,chars)
