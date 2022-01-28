@@ -16,8 +16,8 @@ def ascii_art(num,ch):
 
     scaleFactor = 0.5
 
-    oneCharWidth = 10
-    oneCharHeight = 18
+    oneCharWidth = 8
+    oneCharHeight = 16
 
     def getChar(inputInt):
         return charArray[math.floor(inputInt*interval)]

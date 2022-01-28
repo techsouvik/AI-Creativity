@@ -1,10 +1,11 @@
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 
 def manage(outputImage):
-    outputImage = ImageEnhance.Brightness(outputImage).enhance(1.5)
     # outputImage = ImageEnhance.Contrast(outputImage).enhance(2)
-    outputImage = ImageEnhance.Color(outputImage).enhance(5)
-    outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.2)
+    outputImage = ImageEnhance.Color(outputImage).enhance(2)
+    # outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.2)
+    outputImage = ImageEnhance.Brightness(outputImage).enhance(1.1)
+
     return outputImage
 
 if __name__ == '__main__':
