@@ -5,6 +5,7 @@ def manage(outputImage):
     outputImage = ImageEnhance.Color(outputImage).enhance(2)
     # outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.2)
     outputImage = ImageEnhance.Brightness(outputImage).enhance(1.1)
+    # outputImage = ImageEnhance.Sharpness(outputImage).enhance(2)
 
     return outputImage
 
