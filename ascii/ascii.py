@@ -78,7 +78,7 @@ def run(tokex, maxn, ch):
     files=filecount('./inputs')
 
     chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
-    addon=ch
+    addon=ch.lower()
     chars += addon
     print('Characters used : '+chars)
     print('------------------------------------------------------------------------------')
