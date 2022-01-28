@@ -6,6 +6,11 @@ upload the AI_Artist .ipynb file to Google Colab or kaggle to Run it
 Make sure you have GPU enabled
 ```
 
+For Auto NFt Creation
+```
+python nft.py -t 'Token' -m 10 -c 'CharactersExtra'
+```
+
 For the Ascii Art
 ```
 python -m venv venv #only run once

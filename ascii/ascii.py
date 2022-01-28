@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 from ascii.api import search
 import math
 from ascii.File import filecount, clear_files
-
+from ascii.colormanage import manage
 
 def ascii_art(num,ch):
     print('------------------------------------------------------')
@@ -54,10 +54,7 @@ def ascii_art(num,ch):
 
         text_file.write('\n')
 
-    outputImage = ImageEnhance.Brightness(outputImage).enhance(1.2)
-    # outputImage = ImageEnhance.Contrast(outputImage).enhance(1)
-    outputImage = ImageEnhance.Color(outputImage).enhance(3)
-    outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.5)
+    outputImage = manage(outputImage)
     outputImage.save('./outputs/nft'+str(num)+'.jpg')
     print("NFT"+str(num)+" created")
 # print(ascii.charlist())
@@ -67,8 +64,9 @@ def ascii_art(num,ch):
 def run(tokex, maxn, ch):
     print('------------------------------------------------------------------------------')
     token = tokex
+    print("Token : "+ token)
     max_results = maxn
-    print('------------------------------------------------------------------------------')
+    print("Number of NFTs in progress : "+ str(max_results))
 
     #Searching and saving the input images
     clear_files('./inputs')
@@ -77,11 +75,13 @@ def run(tokex, maxn, ch):
     search(token,max_results)
     files=filecount('./inputs')
 
-    chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
-
-    addon=ch
+    chars = "$@B%8&WM#*"+("oahkbdpqwmZO0QLCJUYXzcvunxrjft").upper()+"/\\|()1{}[]?-_+~<>i!lI"[::-1]
+    addon=ch.upper()
     chars += addon
+    print('Characters used : '+chars)
+    print('------------------------------------------------------------------------------')
 
+    
     for i in range(files):
         ascii_art(i,chars)
     print("Done! Enjoy!")
