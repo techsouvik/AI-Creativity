@@ -5,15 +5,16 @@ from ascii.File import filecount, clear_files
 from ascii.colormanage import manage
 
 def ascii_art(num,ch):
-    print('------------------------------------------------------')
+    print('------------------------------------------------------------------------------')
     print("Generating ASCII art for image number {}".format(num))
+    print('------------------------------------------------------------------------------')
     chars=ch
     # chars = "#Wo- "[::-1]
     charArray = list(chars)
     charLength = len(charArray)
     interval = charLength/256
 
-    scaleFactor = 0.4
+    scaleFactor = 0.5
 
     oneCharWidth = 10
     oneCharHeight = 18
@@ -67,6 +68,7 @@ def run(tokex, maxn, ch):
     print("Token : "+ token)
     max_results = maxn
     print("Number of NFTs in progress : "+ str(max_results))
+    print('------------------------------------------------------------------------------')
 
     #Searching and saving the input images
     clear_files('./inputs')
@@ -75,8 +77,8 @@ def run(tokex, maxn, ch):
     search(token,max_results)
     files=filecount('./inputs')
 
-    chars = "$@B%8&WM#*"+("oahkbdpqwmZO0QLCJUYXzcvunxrjft").upper()+"/\\|()1{}[]?-_+~<>i!lI"[::-1]
-    addon=ch.upper()
+    chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
+    addon=ch
     chars += addon
     print('Characters used : '+chars)
     print('------------------------------------------------------------------------------')
@@ -84,8 +86,9 @@ def run(tokex, maxn, ch):
     
     for i in range(files):
         ascii_art(i,chars)
+    print('------------------------------------------------------------------------------')
     print("Done! Enjoy!")
-
+    print('------------------------------------------------------------------------------')
 
 if __name__ == '__main__':
     run()
