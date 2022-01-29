@@ -87,11 +87,12 @@ def printJson(objs):
 
 def download(objs,max_results):
     n=0
-    for obj in objs and n<max_results:
+    if len(objs)>=max_results:
+        objs = objs[:max_results]
+
+    for obj in objs:
         try:
             response = requests.get(obj["image"])
-            if(response.content==NULL):
-                continue
             file = open("./inputs/nft_input"+str(n)+".jpg", "wb")
             file.write(response.content)
             file.close()
