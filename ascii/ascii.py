@@ -4,7 +4,7 @@ import math
 from ascii.File import filecount, clear_files
 from ascii.colormanage import manage
 
-def ascii_art(num,ch):
+def ascii_art(num,ch, extra=None):
     print('------------------------------------------------------------------------------')
     print("Generating ASCII art for image number {}".format(num))
     print('------------------------------------------------------------------------------')
@@ -23,8 +23,11 @@ def ascii_art(num,ch):
         return charArray[math.floor(inputInt*interval)]
 
     text_file = open("./outputs/metadata/metadata"+str(num)+".bin", "w")
-
-    add = './inputs/nft_input'+str(num)+'.jpg'
+    if extra is None:
+        add = './inputs/nft_input'+str(num)+'.jpg'
+    else:
+        add = './inputs/'+extra
+        num=1        
 
     im = Image.open(add)
     # im.resize((100,100))
@@ -58,6 +61,10 @@ def ascii_art(num,ch):
     outputImage = manage(outputImage)
     outputImage.save('./outputs/nft'+str(num)+'.jpg')
     print("NFT"+str(num)+" created")
+    if extra is None:
+        print('------------------------------------------------------------------------------')
+        print("Done! Enjoy!")
+        print('------------------------------------------------------------------------------')
 # print(ascii.charlist())
 
 
