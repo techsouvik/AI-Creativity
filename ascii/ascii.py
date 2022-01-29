@@ -2,21 +2,22 @@ from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 from ascii.api import search
 import math
 from ascii.File import filecount, clear_files
-
+from ascii.colormanage import manage
 
 def ascii_art(num,ch):
-    print('------------------------------------------------------')
+    print('------------------------------------------------------------------------------')
     print("Generating ASCII art for image number {}".format(num))
+    print('------------------------------------------------------------------------------')
     chars=ch
     # chars = "#Wo- "[::-1]
     charArray = list(chars)
     charLength = len(charArray)
     interval = charLength/256
 
-    scaleFactor = 0.4
+    scaleFactor = 0.5
 
-    oneCharWidth = 10
-    oneCharHeight = 18
+    oneCharWidth = 8
+    oneCharHeight = 12
 
     def getChar(inputInt):
         return charArray[math.floor(inputInt*interval)]
@@ -54,10 +55,7 @@ def ascii_art(num,ch):
 
         text_file.write('\n')
 
-    outputImage = ImageEnhance.Brightness(outputImage).enhance(1.2)
-    # outputImage = ImageEnhance.Contrast(outputImage).enhance(1)
-    outputImage = ImageEnhance.Color(outputImage).enhance(3)
-    outputImage = ImageEnhance.Sharpness(outputImage).enhance(0.5)
+    outputImage = manage(outputImage)
     outputImage.save('./outputs/nft'+str(num)+'.jpg')
     print("NFT"+str(num)+" created")
 # print(ascii.charlist())
@@ -67,7 +65,9 @@ def ascii_art(num,ch):
 def run(tokex, maxn, ch):
     print('------------------------------------------------------------------------------')
     token = tokex
+    print("Token : "+ token)
     max_results = maxn
+    print("Number of NFTs in progress : "+ str(max_results))
     print('------------------------------------------------------------------------------')
 
     #Searching and saving the input images
@@ -78,14 +78,17 @@ def run(tokex, maxn, ch):
     files=filecount('./inputs')
 
     chars = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. "[::-1]
-
-    addon=ch
+    addon=ch.lower()
     chars += addon
+    print('Characters used : '+chars)
+    print('------------------------------------------------------------------------------')
 
+    
     for i in range(files):
         ascii_art(i,chars)
+    print('------------------------------------------------------------------------------')
     print("Done! Enjoy!")
-
+    print('------------------------------------------------------------------------------')
 
 if __name__ == '__main__':
     run()

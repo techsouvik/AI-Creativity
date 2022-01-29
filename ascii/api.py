@@ -68,10 +68,10 @@ def search(keywords, max_results=1):
         # logger.debug("Hitting Url Success : %s", requestUrl)
         check += download(data["results"],max_results-check)
         if check >= max_results or "next" not in data:
-            print("----------------------------------------")
+            print("------------------------------------------------------------------------------")
             # logger.debug("Downloaded %d Images", check)
             break
-        print("-------------------Next Page-------------------")
+        print("-----------------------------------Next Page----------------------------------")
 
         requestUrl = url + data["next"];
 

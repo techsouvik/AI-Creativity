@@ -1,2 +1,4 @@
 Pillow
 requests
+pyexiv2
+py3exiv2
