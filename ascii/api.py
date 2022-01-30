@@ -53,7 +53,6 @@ def search(keywords, max_results=1):
         'vqd': searchObj.group(1),
         'f': ',,,',
         'p': '1',
-        'kp': '-2',
         'v7exp': 'a'
     }
 
