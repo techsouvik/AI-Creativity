@@ -3,6 +3,7 @@ from ascii.api import search
 import math
 from ascii.File import filecount, clear_files
 from ascii.colormanage import manage
+import json
 
 def ascii_art(num,ch, extra=None):
     print('------------------------------------------------------------------------------')
@@ -53,15 +54,15 @@ def ascii_art(num,ch, extra=None):
             r, g, b = pix[j, i]
             h = int(r/3 + g/3 + b/3)
             pix[j, i] = (h, h, h)
-            text_file.write(getChar(h))
+            # text_file.write(getChar(h))
             d.text((j*oneCharWidth, i*oneCharHeight), getChar(h), font = fnt, fill = (r, g, b))
 
-        text_file.write('\n')
+        # text_file.write('\n')
 
     outputImage = manage(outputImage)
     outputImage.save('./outputs/nft'+str(num)+'.jpg')
     print("NFT"+str(num)+" created")
-    if extra is None:
+    if extra is not None:
         print('------------------------------------------------------------------------------')
         print("Done! Enjoy!")
         print('------------------------------------------------------------------------------')
