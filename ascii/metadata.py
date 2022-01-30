@@ -1,10 +1,10 @@
 import json
 
-def makejson(num):
+def makejson(num,ipfs='ipfs://'):
         metadata = {
             "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.", 
-            "external_url": "https://openseacreatures.io/3", 
-            "image": "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png", 
+            "external_url": "https://barterlink.vercel.app | https://sads.vercel.app", 
+            "image": ipfs, 
             "name": "Dave Starbelly",
             "attributes": [
                 {
