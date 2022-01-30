@@ -1,5 +1,5 @@
 """
-Python3 version of api.py.
+Python3 version of api.py. This is Just for Reference.
 """
 from urllib import request, parse
 import re
@@ -90,12 +90,14 @@ def search(keywords, max_results=None):
         requestUrl = url + data["next"]
 
 def printJson(objs):
+    n=1
     for obj in objs:
         print("Width {0}, Height {1}".format(obj["width"], obj["height"]))
         print("Thumbnail {0}".format(obj["thumbnail"]))
         print("Url {0}".format(obj["url"]))
         print("Title {0}".format(obj["title"].encode('utf-8')))
-        print("Image {0}".format(obj["image"]))
+        print("Image"+str(n)+"{0}".format(obj["image"]))
         print("__________")
+        n+=1
 
 search("NSFW");

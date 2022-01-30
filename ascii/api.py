@@ -1,25 +1,32 @@
-import requests;
-import re;
-import json;
-import time;
-import logging;
+from urllib import request, parse
+import re
+import json
+import time
+import logging
 
-logging.basicConfig(level=logging.DEBUG);
+logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 def search(keywords, max_results=1):
-    url = 'https://duckduckgo.com/';
-    params = {
-    	'q': keywords,
-        # 'm': max_results,
-    };
+    url = 'https://duckduckgo.com/'
+    params = parse.urlencode({'q': keywords}).encode()
 
     logger.debug("Hitting DuckDuckGo for Token");
 
     #   First make a request to above URL, and parse out the 'vqd'
     #   This is a special token, which should be used in the subsequent request
-    res = requests.post(url, data=params)
-    searchObj = re.search(r'vqd=([\d-]+)\&', res.text, re.M|re.I);
+    req = request.Request(
+        url,
+        data=params,
+        headers={
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
+        }
+    )
+    
+    res = request.urlopen(req, timeout=10)
+    res_text = res.read().decode('utf-8')
+    searchObj = re.search(r'vqd=([\d-]+)\&', res_text, re.M|re.I)
+
 
     if not searchObj:
         logger.error("Token Parsing Failed !");
@@ -39,17 +46,18 @@ def search(keywords, max_results=1):
         'accept-language': 'en-US,en;q=0.9',
     }
 
-    params = (
-        ('l', 'us-en'),
-        # ('kp', -2),
-        ('o', 'json'),
-        ('q', keywords),
-        # ('m', max_results),
-        ('vqd', searchObj.group(1)),
-        ('f', ',,,'),
-        ('p', '1'),
-        ('v7exp', 'a'),
-    )
+    params = {
+        'l': 'us-en',
+        'o': 'json',
+        'q': keywords,
+        'vqd': searchObj.group(1),
+        'f': ',,,',
+        'p': '1',
+        'kp': '-2',
+        'v7exp': 'a'
+    }
+
+    params = parse.urlencode(params).encode()
 
     requestUrl = url + "i.js"
 
@@ -60,15 +68,22 @@ def search(keywords, max_results=1):
     while True:
         while True:
             try:
-                res = requests.get(requestUrl, headers=headers, params=params)
-                data = json.loads(res.text)
+                req = request.Request(
+                    requestUrl,
+                    data=params,
+                    headers=headers
+                )
+                res = request.urlopen(req, timeout=10)
+                data = json.loads(res.read().decode('utf-8'))
                 break
             except ValueError as e:
                 logger.debug("Hitting Url Failure - Sleep and Retry: %s", requestUrl)
+                time.sleep(5)                
                 continue
         logger.debug("Hitting Url Success : %s", requestUrl)
         check += download(data["results"],max_results-check)
         if check >= max_results or "next" not in data:
+            logger.debug("No Next Page - Exiting")
             print("------------------------------------------------------------------------------")
             logger.debug("Downloaded %d Images", check)
             break
@@ -95,12 +110,13 @@ def download(objs,max_results):
         if(n >= max_results):
             break
         try:
-            response = requests.get(obj["image"])
-            if(response.content == None):
-                continue
-            file = open("./inputs/nft_input"+str(n)+".jpg", "wb")
-            file.write(response.content)
-            file.close()
+            # response = request.urlretrieve(obj["image"],"./inputs/nft_input"+str(n)+".jpg", "wb")
+            # if(response.content == None):
+            #     continue
+            # file = open("./inputs/nft_input"+str(n)+".jpg", "wb")
+            # file.write(response.content)
+            # file.close()
+            request.urlretrieve(obj["image"],"./inputs/nft_input"+str(n)+".jpg")
             print("-----------------\n")
             print("Downloaded "+str(n+1)+" Image: {0}".format(obj["image"]))
             print("\n-----------------")
