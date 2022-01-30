@@ -1,8 +1,9 @@
 import json
+import ascii.dna as dna
 
-def makejson(num,ipfs='ipfs://'):
+def makejson(num,ipfs='ipfs://', Descriptions=dna.DNA(20)):
         metadata = {
-            "description": "Friendly OpenSea Creature that enjoys long swims in the ocean.", 
+            "description": Descriptions, 
             "external_url": "https://barterlink.vercel.app | https://sads.vercel.app", 
             "image": ipfs, 
             "name": "Dave Starbelly",
